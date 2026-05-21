@@ -48,6 +48,8 @@
                     class="nav-link child-link level-two-link"
                     :class="{
                       active: route.name === child.key,
+                      'sort-basic-link': child.navGroupKey === 'linear-list-sort' && child.sortLevel === 'basic',
+                      'sort-advanced-link': child.navGroupKey === 'linear-list-sort' && child.sortLevel === 'advanced',
                     }"
                     :title="isCollapsed ? child.title : ''"
                   >
@@ -352,6 +354,48 @@ function toggleSubgroup(key) {
   background: linear-gradient(135deg, #9ddcff 0%, #88f0d8 100%);
   border-color: transparent;
   box-shadow: 0 10px 20px rgba(76, 210, 202, 0.16);
+}
+
+.nav-link.level-two-link.sort-basic-link {
+  color: #d9efff;
+  background: linear-gradient(180deg, rgba(126, 220, 255, 0.12) 0%, rgba(126, 220, 255, 0.06) 100%);
+  border-color: rgba(126, 220, 255, 0.18);
+  border-left-color: rgba(126, 220, 255, 0.44);
+}
+
+.nav-link.level-two-link.sort-basic-link:hover {
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(126, 220, 255, 0.18) 0%, rgba(126, 220, 255, 0.09) 100%);
+  border-color: rgba(126, 220, 255, 0.3);
+}
+
+.nav-link.level-two-link.sort-advanced-link {
+  color: #e7f8ed;
+  background: linear-gradient(180deg, rgba(75, 225, 195, 0.2) 0%, rgba(19, 166, 122, 0.11) 100%);
+  border-color: rgba(75, 225, 195, 0.28);
+  border-left-color: rgba(75, 225, 195, 0.62);
+}
+
+.nav-link.level-two-link.sort-advanced-link:hover {
+  color: #ffffff;
+  background: linear-gradient(180deg, rgba(75, 225, 195, 0.28) 0%, rgba(19, 166, 122, 0.16) 100%);
+  border-color: rgba(75, 225, 195, 0.42);
+}
+
+.nav-link.level-two-link.sort-basic-link.active {
+  color: #0c1d35;
+  background: linear-gradient(135deg, #bde9ff 0%, #94d8ff 100%);
+  border-color: transparent;
+  border-left-color: transparent;
+  box-shadow: 0 10px 20px rgba(126, 220, 255, 0.18);
+}
+
+.nav-link.level-two-link.sort-advanced-link.active {
+  color: #06271f;
+  background: linear-gradient(135deg, #8af0db 0%, #39d5aa 100%);
+  border-color: transparent;
+  border-left-color: transparent;
+  box-shadow: 0 10px 20px rgba(75, 225, 195, 0.22);
 }
 
 .collapsed .group-items {
