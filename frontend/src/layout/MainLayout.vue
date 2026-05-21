@@ -48,8 +48,6 @@
                     class="nav-link child-link level-two-link"
                     :class="{
                       active: route.name === child.key,
-                      'sort-basic-link': child.navGroupKey === 'linear-list-sort' && child.sortLevel === 'basic',
-                      'sort-advanced-link': child.navGroupKey === 'linear-list-sort' && child.sortLevel === 'advanced',
                     }"
                     :title="isCollapsed ? child.title : ''"
                   >
@@ -225,27 +223,38 @@ function toggleSubgroup(key) {
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 0;
-  border-radius: 10px;
-  padding: 8px 6px;
-  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(126, 220, 255, 0.22);
+  border-radius: 12px;
+  padding: 9px 8px;
+  background:
+    linear-gradient(135deg, rgba(34, 77, 126, 0.9) 0%, rgba(17, 39, 73, 0.92) 100%);
   color: #f2f7ff;
   cursor: pointer;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 750;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 10px 22px rgba(5, 14, 28, 0.22);
 }
 
 .group-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(135deg, rgba(44, 96, 154, 0.98) 0%, rgba(21, 49, 91, 0.96) 100%);
+  border-color: rgba(126, 220, 255, 0.38);
 }
 
 .group-icon {
-  width: 22px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
-  color: #7edcff;
+  border-radius: 8px;
+  background: rgba(126, 220, 255, 0.16);
+  color: #a9e8ff;
   font-weight: 700;
   text-align: center;
 }
@@ -369,14 +378,6 @@ function toggleSubgroup(key) {
   box-shadow: 0 10px 20px rgba(76, 210, 202, 0.16);
 }
 
-.nav-link.level-two-link.sort-basic-link {
-  --level-accent: rgba(126, 220, 255, 0.5);
-}
-
-.nav-link.level-two-link.sort-advanced-link {
-  --level-accent: rgba(75, 225, 195, 0.82);
-}
-
 .nav-link.level-two-link.active::before {
   background: rgba(12, 29, 53, 0.45);
 }
@@ -423,6 +424,15 @@ function toggleSubgroup(key) {
 
 .nav-link {
   justify-content: flex-start;
+}
+
+.nav-link.level-one-link,
+.subgroup-button.level-one-link {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.045) 100%);
+  border-color: rgba(126, 220, 255, 0.16);
+  border-left-color: rgba(126, 220, 255, 0.42);
+  color: rgba(232, 240, 251, 0.9);
+  font-weight: 600;
 }
 
 .nav-link:hover,
