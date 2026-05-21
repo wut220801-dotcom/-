@@ -175,7 +175,7 @@
         </section>
       </div>
 
-      <aside ref="codeCardRef" class="code-card">
+      <aside ref="codeCardRef" class="code-card" :class="{ 'has-struct': hasStruct }">
         <div v-if="hasStruct" class="struct-card">
           <div class="struct-title">结构体定义</div>
           <div class="struct-body">
@@ -1380,6 +1380,7 @@ onUnmounted(() => {
 .code-card {
   position: sticky;
   top: 14px;
+  --struct-panel-share: 30%;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 28px);
@@ -1405,6 +1406,7 @@ onUnmounted(() => {
 
 .code-top {
   display: grid;
+  flex: 0 0 auto;
   gap: 10px;
   padding: 12px 12px 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -1770,9 +1772,11 @@ onUnmounted(() => {
 .struct-card {
   display: flex;
   flex-direction: column;
+  flex: 0 0 var(--struct-panel-share);
   min-height: 0;
-  margin-bottom: 10px;
-  border-radius: 16px;
+  max-height: var(--struct-panel-share);
+  margin: 10px 10px 0;
+  border-radius: 10px;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(14, 31, 56, 0.98), rgba(17, 42, 78, 0.96));
   border: 1px solid rgba(137, 196, 255, 0.18);
@@ -1797,6 +1801,7 @@ onUnmounted(() => {
 }
 
 .struct-title {
+  flex: 0 0 auto;
   padding: 10px 14px;
   color: #f8c56a;
   font-size: 13px;
@@ -1908,7 +1913,7 @@ onUnmounted(() => {
 }
 
 .code-body {
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
@@ -1950,13 +1955,9 @@ onUnmounted(() => {
 
   .code-card {
     position: static;
-    height: auto;
-    min-height: 400px;
-    max-height: none;
-  }
-
-  .struct-body {
-    min-height: 220px;
+    height: calc(100vh - 28px);
+    min-height: 520px;
+    max-height: 760px;
   }
 }
 
