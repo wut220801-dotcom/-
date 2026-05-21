@@ -330,10 +330,12 @@ function toggleSubgroup(key) {
 }
 
 .nav-link.level-two-link {
+  --level-accent: rgba(126, 220, 255, 0.34);
+  position: relative;
   width: calc(100% - 24px);
   min-height: 32px;
   margin-left: 24px;
-  padding-left: 12px;
+  padding-left: 18px;
   border: 1px solid rgba(126, 220, 255, 0.08);
   border-left: 2px solid rgba(126, 220, 255, 0.18);
   border-radius: 9px;
@@ -341,6 +343,17 @@ function toggleSubgroup(key) {
   color: rgba(232, 240, 251, 0.8);
   font-size: 11px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 6px 14px rgba(10, 22, 42, 0.14);
+}
+
+.nav-link.level-two-link::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 9px;
+  width: 4px;
+  height: calc(100% - 18px);
+  border-radius: 999px;
+  background: var(--level-accent);
 }
 
 .nav-link.level-two-link:hover {
@@ -357,45 +370,15 @@ function toggleSubgroup(key) {
 }
 
 .nav-link.level-two-link.sort-basic-link {
-  color: #d9efff;
-  background: linear-gradient(180deg, rgba(126, 220, 255, 0.12) 0%, rgba(126, 220, 255, 0.06) 100%);
-  border-color: rgba(126, 220, 255, 0.18);
-  border-left-color: rgba(126, 220, 255, 0.44);
-}
-
-.nav-link.level-two-link.sort-basic-link:hover {
-  color: #ffffff;
-  background: linear-gradient(180deg, rgba(126, 220, 255, 0.18) 0%, rgba(126, 220, 255, 0.09) 100%);
-  border-color: rgba(126, 220, 255, 0.3);
+  --level-accent: rgba(126, 220, 255, 0.5);
 }
 
 .nav-link.level-two-link.sort-advanced-link {
-  color: #e7f8ed;
-  background: linear-gradient(180deg, rgba(75, 225, 195, 0.2) 0%, rgba(19, 166, 122, 0.11) 100%);
-  border-color: rgba(75, 225, 195, 0.28);
-  border-left-color: rgba(75, 225, 195, 0.62);
+  --level-accent: rgba(75, 225, 195, 0.82);
 }
 
-.nav-link.level-two-link.sort-advanced-link:hover {
-  color: #ffffff;
-  background: linear-gradient(180deg, rgba(75, 225, 195, 0.28) 0%, rgba(19, 166, 122, 0.16) 100%);
-  border-color: rgba(75, 225, 195, 0.42);
-}
-
-.nav-link.level-two-link.sort-basic-link.active {
-  color: #0c1d35;
-  background: linear-gradient(135deg, #bde9ff 0%, #94d8ff 100%);
-  border-color: transparent;
-  border-left-color: transparent;
-  box-shadow: 0 10px 20px rgba(126, 220, 255, 0.18);
-}
-
-.nav-link.level-two-link.sort-advanced-link.active {
-  color: #06271f;
-  background: linear-gradient(135deg, #8af0db 0%, #39d5aa 100%);
-  border-color: transparent;
-  border-left-color: transparent;
-  box-shadow: 0 10px 20px rgba(75, 225, 195, 0.22);
+.nav-link.level-two-link.active::before {
+  background: rgba(12, 29, 53, 0.45);
 }
 
 .collapsed .group-items {
