@@ -1,6 +1,7 @@
 ﻿import { createRouter, createWebHistory } from 'vue-router'
 import MainLayout from '../layout/MainLayout.vue'
 import AlgorithmPage from '../views/AlgorithmPage.vue'
+import HomeView from '../views/HomeView.vue'
 import { routes } from '../data/algorithmCatalog'
 
 const router = createRouter({
@@ -12,7 +13,8 @@ const router = createRouter({
       children: [
         {
           path: '',
-          redirect: routes[0].path,
+          name: 'home',
+          component: HomeView,
         },
         ...routes.map((route) => ({
           path: route.path,

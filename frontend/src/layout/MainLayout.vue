@@ -1,13 +1,13 @@
 <template>
   <div class="layout-root" :class="{ collapsed: isCollapsed }">
     <aside class="sidebar">
-      <div class="brand-block">
+      <RouterLink class="brand-block brand-link" to="/" title="返回首页">
         <div class="brand-mark">DS</div>
         <div class="brand-text">
           <h1 class="brand-title">数据结构可视化</h1>
           <p class="brand-subtitle">毕业设计演示平台</p>
         </div>
-      </div>
+      </RouterLink>
 
       <nav class="nav-area">
         <section v-for="group in navigationGroups" :key="group.key" class="nav-group">
@@ -163,6 +163,18 @@ function toggleSubgroup(key) {
   align-items: center;
   padding: 8px 6px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.brand-link {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 14px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.brand-link:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
 }
 
 .brand-mark {
