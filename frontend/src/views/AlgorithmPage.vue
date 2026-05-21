@@ -190,44 +190,46 @@
           </div>
         </div>
 
-        <div class="code-top">
-          <div class="code-top-main">
-            <div>
-              <p class="page-kicker code-kicker">{{ page.category }}</p>
-              <h3>代码视图</h3>
-              <p class="code-tip">当前执行步骤会自动滚动并高亮对应代码行。</p>
+        <div class="code-view-card">
+          <div class="code-top">
+            <div class="code-top-main">
+              <div>
+                <p class="page-kicker code-kicker">{{ page.category }}</p>
+                <h3>代码视图</h3>
+                <p class="code-tip">当前执行步骤会自动滚动并高亮对应代码行。</p>
+              </div>
+
+              <div class="code-meta">
+                <span class="code-badge">{{ currentLanguageLabel }}</span>
+                <span class="code-badge ghost">{{ currentAction?.label }}</span>
+                <span class="code-badge ghost">{{ traceStatusText }}</span>
+              </div>
             </div>
 
-            <div class="code-meta">
-              <span class="code-badge">{{ currentLanguageLabel }}</span>
-              <span class="code-badge ghost">{{ currentAction?.label }}</span>
-              <span class="code-badge ghost">{{ traceStatusText }}</span>
+            <div class="language-switcher code-switcher">
+              <button
+                v-for="lang in languages"
+                :key="lang.key"
+                type="button"
+                class="language-pill"
+                :class="{ active: activeLanguage === lang.key }"
+                @click="activeLanguage = lang.key"
+              >
+                {{ lang.label }}
+              </button>
             </div>
           </div>
 
-          <div class="language-switcher code-switcher">
-            <button
-              v-for="lang in languages"
-              :key="lang.key"
-              type="button"
-              class="language-pill"
-              :class="{ active: activeLanguage === lang.key }"
-              @click="activeLanguage = lang.key"
+          <div ref="codeBodyRef" class="code-body">
+            <div
+              v-for="(line, index) in currentCode"
+              :key="`${activeLanguage}-${index}`"
+              class="code-line"
+              :class="{ active: isLineActive(index), dimmed: isLineDimmed(index) }"
             >
-              {{ lang.label }}
-            </button>
-          </div>
-        </div>
-
-        <div ref="codeBodyRef" class="code-body">
-          <div
-            v-for="(line, index) in currentCode"
-            :key="`${activeLanguage}-${index}`"
-            class="code-line"
-            :class="{ active: isLineActive(index), dimmed: isLineDimmed(index) }"
-          >
-            <span class="line-no">{{ index + 1 }}</span>
-            <code>{{ line }}</code>
+              <span class="line-no">{{ index + 1 }}</span>
+              <code>{{ line }}</code>
+            </div>
           </div>
         </div>
       </aside>
@@ -1381,8 +1383,11 @@ onUnmounted(() => {
   position: sticky;
   top: 14px;
   --struct-panel-share: 30%;
-  display: flex;
-  flex-direction: column;
+  --code-panel-gap: 10px;
+  display: grid;
+  grid-template-rows: minmax(0, var(--struct-panel-share)) minmax(0, 1fr);
+  gap: var(--code-panel-gap);
+  padding: 10px;
   min-height: calc(100vh - 28px);
   max-height: calc(100vh - 28px);
   min-width: 0;
@@ -1394,6 +1399,10 @@ onUnmounted(() => {
     linear-gradient(180deg, #0a1427 0%, #122243 100%);
   border: 1px solid rgba(56, 167, 255, 0.12);
   box-shadow: 0 24px 48px rgba(11, 22, 44, 0.24);
+}
+
+.code-card:not(.has-struct) {
+  grid-template-rows: minmax(0, 1fr);
 }
 
 .card-header,
@@ -1413,6 +1422,14 @@ onUnmounted(() => {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
     radial-gradient(circle at top right, rgba(86, 192, 255, 0.16), transparent 30%);
+}
+
+.code-view-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .card-header h3,
@@ -1772,10 +1789,7 @@ onUnmounted(() => {
 .struct-card {
   display: flex;
   flex-direction: column;
-  flex: 0 0 var(--struct-panel-share);
   min-height: 0;
-  max-height: var(--struct-panel-share);
-  margin: 10px 10px 0;
   border-radius: 10px;
   overflow: hidden;
   background: linear-gradient(180deg, rgba(14, 31, 56, 0.98), rgba(17, 42, 78, 0.96));
